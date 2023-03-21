@@ -78,8 +78,9 @@ fun SignIn() {
             }
             Column(modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp)) {
-                    Column() {
+                .padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text(
                             text = stringResource(id = R.string.sign_up),
                             fontSize = 48.sp,
@@ -92,6 +93,7 @@ fun SignIn() {
                             color = Color(red = 160, green = 156, blue = 156)
                         )
                     }
+                Spacer(modifier = Modifier.height(50.dp))
                 OutlinedTextField(value = emailUser, onValueChange = { emailUser = it },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(16.dp),
