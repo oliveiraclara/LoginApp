@@ -3,6 +3,7 @@
     <string name="title">Login</string>
     <string name="please_sign_up">Please sign in to continue</string>
     <string name="email">E-mail</string>
+    <string name="over_18">Over 18?</string>
     <string name="password">Password</string>
     <string name="phone">Phone</string>
     <string name="user_name">User Name</string>
@@ -14,4 +15,6 @@
     <string name="sign_up">Sign up</string>
     <string name="email_description">Email icon inside text field</string>
     <string name="title_activity_sign_up_app">SignUpApp</string>
+    <string name="title_activity_trips">Trips</string>
+    <string name="title_activity_trip">Trip</string>
 </resources>

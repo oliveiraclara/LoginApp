@@ -83,13 +83,14 @@ fun SignIn() {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
                         Text(
                             text = stringResource(id = R.string.sign_up),
-                            fontSize = 48.sp,
+                            fontSize = 34.sp,
                             color = Color(red = 207, green = 6, blue = 240),
                             fontWeight = FontWeight.Bold
                         )
 
                         Text(
                             text = stringResource(id = R.string.create_new_account),
+                            fontSize = 18.sp,
                             color = Color(red = 160, green = 156, blue = 156)
                         )
                     }
@@ -106,6 +107,7 @@ fun SignIn() {
                         )
                     }
                 )
+                Spacer(modifier = Modifier.height(16.dp))
                 OutlinedTextField(value = emailUser, onValueChange = { phoneUser = it },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(16.dp),
@@ -119,6 +121,7 @@ fun SignIn() {
                         )
                     }
                 )
+                Spacer(modifier = Modifier.height(16.dp))
                 OutlinedTextField(value = emailUser, onValueChange = { emailUser = it },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(16.dp),
@@ -132,6 +135,7 @@ fun SignIn() {
                         )
                     }
                 )
+                Spacer(modifier = Modifier.height(16.dp))
                 OutlinedTextField(value = emailUser, onValueChange = { emailUser = it },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(16.dp),
@@ -146,6 +150,14 @@ fun SignIn() {
                     }
                 )
                 Spacer(modifier = Modifier.height(16.dp))
+                Row(modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Start,
+                verticalAlignment = Alignment.CenterVertically) {
+                    Checkbox(checked = false, onCheckedChange = {})
+                    Text(text = stringResource(id = R.string.over_18))
+
+                }
+                Spacer(modifier = Modifier.height(16.dp))
                 Button(onClick = { /*TODO*/ },
                 modifier = Modifier
                     .fillMaxWidth()
@@ -157,6 +169,7 @@ fun SignIn() {
                     fontWeight = FontWeight.Bold,
                     color = Color.White)
                 }
+                Spacer(modifier = Modifier.height(31.dp))
                 Row(modifier = Modifier.align(Alignment.End)) {
                     Text(
                         text = stringResource(id = R.string.have_account),

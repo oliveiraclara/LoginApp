@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.loginapp
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -43,6 +44,7 @@ fun Greeting(name: String) {
 
 }
 
+@SuppressLint("SuspiciousIndentation")
 @Preview(showSystemUi = true)
 @Composable
 fun LoginScreen() {
@@ -79,17 +81,20 @@ fun LoginScreen() {
             Column(modifier = Modifier
                 .fillMaxWidth()
                 .padding(16.dp)) {
-                Text(
-                    text = stringResource(id = R.string.title),
-                    fontSize = 48.sp,
-                    color = Color(red = 207, green = 6, blue = 240),
-                    fontWeight = FontWeight.Bold
-                )
+                Column() {
+                    Text(
+                        text = stringResource(id = R.string.title),
+                        fontSize = 48.sp,
+                        color = Color(red = 207, green = 6, blue = 240),
+                        fontWeight = FontWeight.Bold
+                    )
 
-                Text(
-                    text = stringResource(id = R.string.please_sign_up),
-                    color = Color(red = 160, green = 156, blue = 156)
-                )
+                    Text(
+                        text = stringResource(id = R.string.please_sign_up),
+                        color = Color(red = 160, green = 156, blue = 156)
+                    )
+                }
+                Spacer(modifier = Modifier.height(85.dp))
                 OutlinedTextField(value = emailUser, onValueChange = { emailUser = it },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(16.dp),
@@ -103,7 +108,7 @@ fun LoginScreen() {
                         )
                     }
                 )
-                //Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(31.dp))
                 OutlinedTextField(value = passwordUser, onValueChange = { passwordUser = it },
                     modifier = Modifier.fillMaxWidth(),
                     shape = RoundedCornerShape(16.dp),
@@ -119,7 +124,7 @@ fun LoginScreen() {
                         )
                     }
                 )
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(31.dp))
                 Column(
                     modifier = Modifier
                         .fillMaxWidth(),
@@ -152,6 +157,7 @@ fun LoginScreen() {
                             )
                         }
                     }
+                    Spacer(modifier = Modifier.height(42.dp))
                     Row() {
                         Text(
                             text = stringResource(id = R.string.not_have_account),
@@ -160,9 +166,10 @@ fun LoginScreen() {
                         Spacer(modifier = Modifier.width(4.dp))
                         Text(
                             text = stringResource(id = R.string.sign_up),
-                            //modifier = Modifier.clickable {
-                            // val intent = Intent(context, SignUpActivity)
-                            //},
+                            modifier = Modifier.clickable {
+                            val intent = Intent(context, SignUpApp::class.java)
+                                context.startActivity(intent)
+                            },
                             color = Color(red = 207, green = 6, blue = 240),
                             fontWeight = FontWeight.Bold
                         )
