@@ -12,17 +12,17 @@
         android:theme="@style/Theme.LoginApp"
         tools:targetApi="31">
         <activity
-            android:name=".Trip"
+            android:name=".gui.Trip"
             android:exported="false"
             android:label="@string/title_activity_trip"
             android:theme="@style/Theme.LoginApp" />
         <activity
-            android:name=".SignUpApp"
+            android:name=".gui.SignUpApp"
             android:exported="false"
             android:label="@string/title_activity_sign_up_app"
             android:theme="@style/Theme.LoginApp" />
         <activity
-            android:name=".MainActivity"
+            android:name=".gui.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.LoginApp">

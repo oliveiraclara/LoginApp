@@ -17,4 +17,5 @@
     <string name="title_activity_sign_up_app">SignUpApp</string>
     <string name="title_activity_trips">Trips</string>
     <string name="title_activity_trip">Trip</string>
+    <string name="title_activity_home">HomeActivity</string>
 </resources>

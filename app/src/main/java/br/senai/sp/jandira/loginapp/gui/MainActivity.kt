@@ -127,7 +127,8 @@ fun LoginScreen() {
                     },
                     colors= TextFieldDefaults
                         .outlinedTextFieldColors(
-                            focusedBorderColor = Color(207, 1, 240)
+                            focusedBorderColor = Color(207, 1, 240),
+                            unfocusedBorderColor = Color(207, 1, 240)
                         )
                 )
                 Spacer(modifier = Modifier.height(31.dp))

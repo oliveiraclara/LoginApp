@@ -3,10 +3,14 @@ package br.senai.sp.jandira.loginapp.gui
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Place
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -90,7 +94,22 @@ fun SignIn() {
                             color = Color(red = 160, green = 156, blue = 156)
                         )
                     }
+                Box(
+                    contentAlignment = Alignment.BottomEnd,
+                    modifier = Modifier.size(100.dp)
+                ){
+                    Card(
+                        modifier = Modifier
+                            .size(100.dp)
+                            .align(Alignment.BottomEnd),
+                        shape = CircleShape,
+                        backgroundColor = Color.Yellow
+                    ) {
 
+                    }
+                    Image(painter = painterResource(id = R.drawable.add_a_photo_24), contentDescription = "")
+                    //modifier = Modifier.align(Alignment.BottomEnd))
+                }
                 Spacer(modifier = Modifier.height(50.dp))
                 OutlinedTextField(value = emailUser, onValueChange = { emailUser = it },
                     modifier = Modifier.fillMaxWidth(),
