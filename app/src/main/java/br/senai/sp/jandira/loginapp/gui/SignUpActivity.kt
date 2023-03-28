@@ -94,8 +94,8 @@ fun SignIn() {
                             color = Color(red = 160, green = 156, blue = 156)
                         )
                     }
+                Spacer(modifier = Modifier.height(32.dp))
                 Box(
-                    contentAlignment = Alignment.BottomEnd,
                     modifier = Modifier.size(100.dp)
                 ){
                     Card(
@@ -103,12 +103,12 @@ fun SignIn() {
                             .size(100.dp)
                             .align(Alignment.BottomEnd),
                         shape = CircleShape,
-                        backgroundColor = Color.Yellow
+                        backgroundColor = Color(232, 232, 232, 255)
                     ) {
-
+                        Image(painter = painterResource(id = R.drawable.user), contentDescription = "")
                     }
-                    Image(painter = painterResource(id = R.drawable.add_a_photo_24), contentDescription = "")
-                    //modifier = Modifier.align(Alignment.BottomEnd))
+                    Image(painter = painterResource(id = R.drawable.add_a_photo_24), contentDescription = "",
+                    modifier = Modifier.align(Alignment.BottomEnd))
                 }
                 Spacer(modifier = Modifier.height(50.dp))
                 OutlinedTextField(value = emailUser, onValueChange = { emailUser = it },
