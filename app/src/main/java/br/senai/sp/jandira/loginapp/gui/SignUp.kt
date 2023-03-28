@@ -1,4 +1,4 @@
-package br.senai.sp.jandira.loginapp
+package br.senai.sp.jandira.loginapp.gui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -22,6 +22,9 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.senai.sp.jandira.loginapp.R
+import br.senai.sp.jandira.loginapp.components.BottonShape
+import br.senai.sp.jandira.loginapp.components.TopShape
 import br.senai.sp.jandira.loginapp.ui.theme.LoginAppTheme
 
 class SignUpApp : ComponentActivity() {
@@ -66,14 +69,7 @@ fun SignIn() {
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.End
                 ) {
-                    Card(
-                        modifier = Modifier
-                            .width(140.dp)
-                            .height(40.dp),
-                        shape = RoundedCornerShape(bottomStart = 16.dp),
-                        backgroundColor = Color(red = 207, green = 6, blue = 240)
-                    ) {
-                    }
+                    TopShape()
                 }
             }
             Column(modifier = Modifier
@@ -94,6 +90,7 @@ fun SignIn() {
                             color = Color(red = 160, green = 156, blue = 156)
                         )
                     }
+
                 Spacer(modifier = Modifier.height(50.dp))
                 OutlinedTextField(value = emailUser, onValueChange = { emailUser = it },
                     modifier = Modifier.fillMaxWidth(),
@@ -191,14 +188,7 @@ fun SignIn() {
                     .fillMaxWidth()
             ) {
                 Row(modifier = Modifier.fillMaxWidth()) {
-                    Card(
-                        modifier = Modifier
-                            .width(140.dp)
-                            .height(40.dp),
-                        shape = RoundedCornerShape(topEnd = 16.dp),
-                        backgroundColor = Color(red = 207, green = 6, blue = 240)
-                    ) {
-                    }
+                    BottonShape()
                 }
             }
         }

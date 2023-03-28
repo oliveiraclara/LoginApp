@@ -1,4 +1,4 @@
-package br.senai.sp.jandira.loginapp
+package br.senai.sp.jandira.loginapp.gui
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -26,6 +26,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import br.senai.sp.jandira.loginapp.R
+import br.senai.sp.jandira.loginapp.components.BottonShape
+import br.senai.sp.jandira.loginapp.components.TopShape
+import br.senai.sp.jandira.loginapp.components.TopShape
 import br.senai.sp.jandira.loginapp.ui.theme.LoginAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -68,14 +72,7 @@ fun LoginScreen() {
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.End
                 ) {
-                    Card(
-                        modifier = Modifier
-                            .width(140.dp)
-                            .height(40.dp),
-                        shape = RoundedCornerShape(bottomStart = 16.dp),
-                        backgroundColor = Color(red = 207, green = 6, blue = 240)
-                    ) {
-                    }
+                    TopShape()
                 }
             }
             Column(modifier = Modifier
@@ -106,7 +103,12 @@ fun LoginScreen() {
                             contentDescription = stringResource(id = R.string.email_description),
                             tint = Color(207, 1, 240)
                         )
-                    }
+                    },
+                colors= TextFieldDefaults
+                    .outlinedTextFieldColors(
+                        focusedBorderColor = Color(207, 1, 240),
+                        unfocusedBorderColor = Color(207, 1, 240)
+                )
                 )
                 Spacer(modifier = Modifier.height(31.dp))
                 OutlinedTextField(value = passwordUser, onValueChange = { passwordUser = it },
@@ -122,7 +124,11 @@ fun LoginScreen() {
                             contentDescription = stringResource(id = R.string.email_description),
                             tint = Color(207, 1, 240)
                         )
-                    }
+                    },
+                    colors= TextFieldDefaults
+                        .outlinedTextFieldColors(
+                            focusedBorderColor = Color(207, 1, 240)
+                        )
                 )
                 Spacer(modifier = Modifier.height(31.dp))
                 Column(
@@ -181,14 +187,7 @@ fun LoginScreen() {
                     .fillMaxWidth()
             ) {
                 Row(modifier = Modifier.fillMaxWidth()) {
-                    Card(
-                        modifier = Modifier
-                            .width(140.dp)
-                            .height(40.dp),
-                        shape = RoundedCornerShape(topEnd = 16.dp),
-                        backgroundColor = Color(red = 207, green = 6, blue = 240)
-                    ) {
-                    }
+                     BottonShape()
                 }
             }
         }
