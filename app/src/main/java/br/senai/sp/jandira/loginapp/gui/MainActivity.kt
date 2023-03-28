@@ -29,7 +29,6 @@ import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.loginapp.R
 import br.senai.sp.jandira.loginapp.components.BottonShape
 import br.senai.sp.jandira.loginapp.components.TopShape
-import br.senai.sp.jandira.loginapp.components.TopShape
 import br.senai.sp.jandira.loginapp.ui.theme.LoginAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -174,8 +173,8 @@ fun LoginScreen() {
                         Text(
                             text = stringResource(id = R.string.sign_up),
                             modifier = Modifier.clickable {
-                            val intent = Intent(context, SignUpApp::class.java)
-                                context.startActivity(intent)
+                            val openSignUp = Intent(context, SignUpApp::class.java)
+                                context.startActivity(openSignUp)
                             },
                             color = Color(red = 207, green = 6, blue = 240),
                             fontWeight = FontWeight.Bold
