@@ -66,7 +66,6 @@ fun SignIn() {
     }
 
 
-
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier.fillMaxSize(),
@@ -223,11 +222,8 @@ fun SignIn() {
                             color = Color(red = 207, green = 6, blue = 240),
                             fontWeight = FontWeight.Bold
                         )
-
-
                     }
                 }
-
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
