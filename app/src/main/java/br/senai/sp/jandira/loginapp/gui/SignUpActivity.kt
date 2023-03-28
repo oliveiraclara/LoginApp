@@ -9,8 +9,6 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Place
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -105,7 +103,9 @@ fun SignIn() {
                         shape = CircleShape,
                         backgroundColor = Color(232, 232, 232, 255)
                     ) {
-                        Image(painter = painterResource(id = R.drawable.user), contentDescription = "")
+                        Image(painter = painterResource
+                            (id = R.drawable.user),
+                            contentDescription = "")
                     }
                     Image(painter = painterResource(id = R.drawable.add_a_photo_24), contentDescription = "",
                     modifier = Modifier.align(Alignment.BottomEnd))
