@@ -128,7 +128,7 @@ fun SignIn() {
                     modifier = Modifier
                         .verticalScroll(rememberScrollState())
                 ) {
-                    OutlinedTextField(value = emailUser, onValueChange = { emailUser = it },
+                    OutlinedTextField(value = userName, onValueChange = { userName = it },
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(16.dp),
                         label = { Text(text = stringResource(id = R.string.user_name)) },
@@ -141,7 +141,7 @@ fun SignIn() {
                         }
                     )
                     Spacer(modifier = Modifier.height(16.dp))
-                    OutlinedTextField(value = emailUser, onValueChange = { phoneUser = it },
+                    OutlinedTextField(value = phoneUser, onValueChange = { phoneUser = it },
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(16.dp),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
@@ -169,7 +169,7 @@ fun SignIn() {
                         }
                     )
                     Spacer(modifier = Modifier.height(16.dp))
-                    OutlinedTextField(value = emailUser, onValueChange = { emailUser = it },
+                    OutlinedTextField(value = passwordUser, onValueChange = { passwordUser = it },
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(16.dp),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
@@ -207,32 +207,30 @@ fun SignIn() {
                         )
                     }
                     Spacer(modifier = Modifier.height(31.dp))
-
-                    Row(modifier = Modifier.align(Alignment.End)) {
-                        Text(
-                            text = stringResource(id = R.string.have_account),
-                            color = Color(red = 160, green = 156, blue = 156),
-                        )
-                        Spacer(modifier = Modifier.width(4.dp))
-                        Text(
-                            text = stringResource(id = R.string.sign_in),
-                            //modifier = Modifier.clickable {
-                            // val intent = Intent(context, SignUpActivity)
-                            //},
-                            color = Color(red = 207, green = 6, blue = 240),
-                            fontWeight = FontWeight.Bold
-                        )
-                    }
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                    ) {
-                        Row(modifier = Modifier.fillMaxWidth()) {
-                            BottonShape()
-                        }
+                }
+                Row(modifier = Modifier.align(Alignment.End)) {
+                    Text(
+                        text = stringResource(id = R.string.have_account),
+                        color = Color(red = 160, green = 156, blue = 156),
+                    )
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(
+                        text = stringResource(id = R.string.sign_in),
+                        //modifier = Modifier.clickable {
+                        // val intent = Intent(context, SignUpActivity)
+                        //},
+                        color = Color(red = 207, green = 6, blue = 240),
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                ) {
+                    Row(modifier = Modifier.fillMaxWidth()) {
+                        BottonShape()
                     }
                 }
-
             }
         }
     }
