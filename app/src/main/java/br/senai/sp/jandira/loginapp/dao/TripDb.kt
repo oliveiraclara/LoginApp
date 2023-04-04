@@ -9,6 +9,7 @@ import br.senai.sp.jandira.loginapp.model.User
 @Database(entities = [User::class], version = 1)
 abstract class TripDb : RoomDatabase() {
 
+    abstract fun userDao(): UserDao
     companion object {
         private lateinit var instanceDb: TripDb
         fun getDataBase(context: Context): TripDb {
