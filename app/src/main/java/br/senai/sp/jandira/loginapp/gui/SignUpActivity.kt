@@ -223,15 +223,16 @@ fun SignIn() {
                             fontWeight = FontWeight.Bold
                         )
                     }
-                }
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                ) {
-                    Row(modifier = Modifier.fillMaxWidth()) {
-                        BottonShape()
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    ) {
+                        Row(modifier = Modifier.fillMaxWidth()) {
+                            BottonShape()
+                        }
                     }
                 }
+
             }
         }
     }
