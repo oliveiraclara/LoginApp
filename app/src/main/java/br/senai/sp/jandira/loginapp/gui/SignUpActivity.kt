@@ -29,11 +29,25 @@ import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.loginapp.R
 import br.senai.sp.jandira.loginapp.components.BottonShape
 import br.senai.sp.jandira.loginapp.components.TopShape
+import br.senai.sp.jandira.loginapp.model.User
+import br.senai.sp.jandira.loginapp.repository.UserRepository
 import br.senai.sp.jandira.loginapp.ui.theme.LoginAppTheme
 
 class SignUpApp : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val user = User(
+            userName = "Maria",
+            email = "maria@gmail.com",
+            password = "12345",
+            phone = "(11)967688790",
+            isOver18 = true
+        )
+
+        val userRep = UserRepository(this)
+        userRep.save(user)
+
         setContent {
             LoginAppTheme {
                 SignIn()
