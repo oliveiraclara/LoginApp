@@ -1,5 +1,6 @@
 package br.senai.sp.jandira.loginapp.gui
 
+import android.content.Context
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -12,18 +13,17 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -38,21 +38,22 @@ class SignUpApp : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val user = User(
-            userName = "Maria",
-            email = "maria@gmail.com",
-            password = "12345",
-            phone = "(11)967688790",
-            isOver18 = true
-        )
-
-        val userRep = UserRepository(this)
-        var id  = userRep.save(user)
-
-        Toast.makeText(this,
-            "$id",
-            Toast.LENGTH_LONG
-        ).show()
+//        val user = User(
+//            userName = "Maria",
+//            email = "maria@gmail.com",
+//            password = "12345",
+//            phone = "(11)967688790",
+//            isOver18 = true
+//        )
+//
+//        val userRep = UserRepository(this)
+//        var id = userRep.save(user)
+//
+//        Toast.makeText(
+//            this,
+//            "$id",
+//            Toast.LENGTH_LONG
+//        ).show()
 
         setContent {
             LoginAppTheme {
@@ -72,19 +73,24 @@ fun Greeting2(name: String) {
 @Composable
 fun SignIn() {
 
-    var userName by rememberSaveable {
+    var userNameState by rememberSaveable {
         mutableStateOf("")
     }
-    var phoneUser by rememberSaveable {
+    var phoneState by rememberSaveable {
         mutableStateOf("")
     }
-    var emailUser by rememberSaveable {
+    var emailState by rememberSaveable {
         mutableStateOf("")
     }
-    var passwordUser by rememberSaveable {
+    var passwordState by rememberSaveable {
         mutableStateOf("")
     }
 
+    var over18State by remember {
+        mutableStateOf(false)
+    }
+
+    val context = LocalContext.current
 
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -148,7 +154,7 @@ fun SignIn() {
                     modifier = Modifier
                         .verticalScroll(rememberScrollState())
                 ) {
-                    OutlinedTextField(value = userName, onValueChange = { userName = it },
+                    OutlinedTextField(value = userNameState, onValueChange = { userNameState = it },
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(16.dp),
                         label = { Text(text = stringResource(id = R.string.user_name)) },
@@ -161,10 +167,10 @@ fun SignIn() {
                         }
                     )
                     Spacer(modifier = Modifier.height(16.dp))
-                    OutlinedTextField(value = phoneUser, onValueChange = { phoneUser = it },
+                    OutlinedTextField(value = phoneState, onValueChange = { phoneState = it },
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(16.dp),
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
+                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
                         label = { Text(text = stringResource(id = R.string.phone)) },
                         leadingIcon = {
                             Icon(
@@ -175,7 +181,7 @@ fun SignIn() {
                         }
                     )
                     Spacer(modifier = Modifier.height(16.dp))
-                    OutlinedTextField(value = emailUser, onValueChange = { emailUser = it },
+                    OutlinedTextField(value = emailState, onValueChange = { emailState = it },
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(16.dp),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
@@ -189,10 +195,10 @@ fun SignIn() {
                         }
                     )
                     Spacer(modifier = Modifier.height(16.dp))
-                    OutlinedTextField(value = passwordUser, onValueChange = { passwordUser = it },
+                    OutlinedTextField(value = passwordState, onValueChange = { passwordState = it },
                         modifier = Modifier.fillMaxWidth(),
+                        visualTransformation = PasswordVisualTransformation(),
                         shape = RoundedCornerShape(16.dp),
-                        keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                         label = { Text(text = stringResource(id = R.string.password)) },
                         leadingIcon = {
                             Icon(
@@ -208,12 +214,22 @@ fun SignIn() {
                         horizontalArrangement = Arrangement.Start,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        Checkbox(checked = false, onCheckedChange = {})
+                        Checkbox(checked = over18State,
+                            onCheckedChange = { over18State = it })
                         Text(text = stringResource(id = R.string.over_18))
 
                     }
                     Button(
-                        onClick = { /*TODO*/ },
+                        onClick = {
+                            saveUser(
+                                userNameState,
+                                phoneState,
+                                emailState,
+                                passwordState,
+                                over18State,
+                                context
+                                )
+                        },
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(48.dp),
@@ -255,3 +271,34 @@ fun SignIn() {
         }
     }
 }
+
+fun saveUser(
+    userName: String,
+    phone: String,
+    email: String,
+    password: String,
+    isOver18: Boolean,
+    context: Context,
+) {
+    val user = User(
+        id = 0,
+        userName = userName,
+        phone = phone,
+        email = email,
+        password = password,
+        isOver18 = isOver18
+    )
+    //Criando uma instancia no repositorio
+    val userRepository = UserRepository(context)
+
+    // Salvar o usuario
+    val id = userRepository.save(user)
+
+    Toast.makeText(
+        context,
+        "Created User #$id",
+        Toast.LENGTH_LONG
+    ).show()
+}
+
+
