@@ -1,6 +1,7 @@
 package br.senai.sp.jandira.loginapp.gui
 
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -73,6 +74,10 @@ fun Greeting2(name: String) {
 @Preview(showSystemUi = true)
 @Composable
 fun SignIn() {
+
+    var photoUri by remember{
+       mutableStateOf<Uri?>(null)
+    }
 
     var userNameState by rememberSaveable {
         mutableStateOf("")
