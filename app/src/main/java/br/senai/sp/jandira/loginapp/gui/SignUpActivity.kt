@@ -2,6 +2,7 @@ package br.senai.sp.jandira.loginapp.gui
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -241,6 +242,13 @@ fun SignIn() {
                             fontWeight = FontWeight.Bold,
                             color = Color.White
                         )
+                        Icon(
+                            painter = painterResource(
+                                id = R.drawable.arrow_forward_24
+                            ),
+                            contentDescription = "",
+                            tint = Color.White
+                        )
                     }
                     Spacer(modifier = Modifier.height(31.dp))
                 }
@@ -280,7 +288,7 @@ fun saveUser(
     isOver18: Boolean,
     context: Context,
 ) {
-    val user = User(
+    val newUser = User(
         id = 0,
         userName = userName,
         phone = phone,
@@ -291,14 +299,26 @@ fun saveUser(
     //Criando uma instancia no repositorio
     val userRepository = UserRepository(context)
 
-    // Salvar o usuario
-    val id = userRepository.save(user)
+    //Verificar se o usuario existe
+    val user  = userRepository.findUserByEmail(email)
+    Log.i("ds2m", "${user.toString()}")
 
-    Toast.makeText(
-        context,
-        "Created User #$id",
-        Toast.LENGTH_LONG
-    ).show()
+    // Salvar o usuario
+    if (user == null){
+        val id = userRepository.save(newUser)
+
+        Toast.makeText(
+            context,
+            "Created User #$id",
+            Toast.LENGTH_LONG
+        ).show()
+    }else{
+        Toast.makeText(
+            context,
+            "User already exists",
+            Toast.LENGTH_LONG
+        ).show()
+    }
 }
 
 

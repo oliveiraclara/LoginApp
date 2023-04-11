@@ -15,9 +15,12 @@ class UserRepository(context: Context) {
         return db.userDao().save(user)
     }
 
-    fun findUserByEmail(email: String): User{
+    fun findUserByEmail(email: String): User {
         return db.userDao().findUserByEmail(email)
     }
 
-
+    //Funcao para autenticar o usuario
+    fun authenticate(email: String, password: String): User {
+    return db.userDao().authenticate(email, password)
+    }
 }

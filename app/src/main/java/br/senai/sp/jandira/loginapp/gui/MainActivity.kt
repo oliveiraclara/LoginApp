@@ -1,8 +1,11 @@
 package br.senai.sp.jandira.loginapp.gui
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.clickable
@@ -23,12 +26,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.loginapp.R
 import br.senai.sp.jandira.loginapp.components.BottonShape
 import br.senai.sp.jandira.loginapp.components.TopShape
+import br.senai.sp.jandira.loginapp.model.User
+import br.senai.sp.jandira.loginapp.repository.UserRepository
 import br.senai.sp.jandira.loginapp.ui.theme.LoginAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -112,6 +118,7 @@ fun LoginScreen() {
                 Spacer(modifier = Modifier.height(31.dp))
                 OutlinedTextField(value = passwordUser, onValueChange = { passwordUser = it },
                     modifier = Modifier.fillMaxWidth(),
+                    visualTransformation = PasswordVisualTransformation(),
                     shape = RoundedCornerShape(16.dp),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                     label = {
@@ -137,7 +144,7 @@ fun LoginScreen() {
                     horizontalAlignment = Alignment.End
                 ) {
                     Button(
-                        onClick = { /*TODO*/ },
+                        onClick = { login(emailUser, passwordUser, context) },
                         modifier = Modifier
                             .width(134.dp)
                             .height(48.dp),
@@ -192,5 +199,29 @@ fun LoginScreen() {
             }
         }
 
+    }
+}
+
+fun login(email: String, password: String, context: Context) {
+
+    val userRepository = UserRepository(context)
+    val user  = userRepository.authenticate(email, password)
+
+    // Fazer login do usuario
+    if (user == null){
+
+        Toast.makeText(
+            context,
+            "email or password is invalid",
+            Toast.LENGTH_LONG
+        ).show()
+    }else{
+        Toast.makeText(
+            context,
+            "Welcome",
+            Toast.LENGTH_LONG
+        ).show()
+        val openHome = Intent(context, Trip::class.java)
+        context.startActivity(openHome)
     }
 }
