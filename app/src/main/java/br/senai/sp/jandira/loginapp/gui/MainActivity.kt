@@ -221,7 +221,9 @@ fun login(email: String, password: String, context: Context) {
             "Welcome",
             Toast.LENGTH_LONG
         ).show()
-        val openHome = Intent(context, Trip::class.java)
-        context.startActivity(openHome)
+        val intent = Intent(context, Trip::class.java)
+        intent.putExtra("id", user.id)
+        intent.putExtra("name", user.userName)
+        context.startActivity(intent)
     }
 }

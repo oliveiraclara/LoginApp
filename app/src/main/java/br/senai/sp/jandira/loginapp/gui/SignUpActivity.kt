@@ -6,8 +6,11 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -20,6 +23,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -35,6 +39,8 @@ import br.senai.sp.jandira.loginapp.components.TopShape
 import br.senai.sp.jandira.loginapp.model.User
 import br.senai.sp.jandira.loginapp.repository.UserRepository
 import br.senai.sp.jandira.loginapp.ui.theme.LoginAppTheme
+import coil.compose.rememberAsyncImagePainter
+import coil.request.ImageRequest
 
 class SignUpApp : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,9 +81,20 @@ fun Greeting2(name: String) {
 @Composable
 fun SignIn() {
 
-    var photoUri by remember{
-       mutableStateOf<Uri?>(null)
+    var photoUri by remember {
+        mutableStateOf<Uri?>(null)
     }
+
+    var launcher = rememberLauncherForActivityResult(
+        contract = ActivityResultContracts.GetContent()
+    ) {
+        photoUri = it
+    }
+    var painter = rememberAsyncImagePainter(
+        ImageRequest.Builder(LocalContext.current)
+            .data(photoUri)
+            .build()
+    )
 
     var userNameState by rememberSaveable {
         mutableStateOf("")
@@ -144,15 +161,23 @@ fun SignIn() {
                         backgroundColor = Color(232, 232, 232, 255)
                     ) {
                         Image(
-                            painter = painterResource
-                                (id = R.drawable.user),
-                            contentDescription = ""
+                            painter = if (photoUri == null)
+                                painterResource(id = R.drawable.user)
+                                else painter,
+                            contentDescription = null,
+                            contentScale = ContentScale.Crop
                         )
                     }
                     Image(
                         painter = painterResource(id = R.drawable.add_a_photo_24),
                         contentDescription = "",
-                        modifier = Modifier.align(Alignment.BottomEnd)
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .clickable {
+                                launcher.launch("image/*")
+                                var message = "nada"
+                                Log.i("ds2m", "${photoUri?.path ?: message}")
+                            }
                     )
                 }
                 Spacer(modifier = Modifier.height(50.dp))
@@ -233,8 +258,9 @@ fun SignIn() {
                                 emailState,
                                 passwordState,
                                 over18State,
+                                photoUri?.path ?: "",
                                 context
-                                )
+                            )
                         },
                         modifier = Modifier
                             .fillMaxWidth()
@@ -291,6 +317,7 @@ fun saveUser(
     email: String,
     password: String,
     isOver18: Boolean,
+    profilePhotoUri: String,
     context: Context,
 ) {
     val newUser = User(
@@ -299,17 +326,18 @@ fun saveUser(
         phone = phone,
         email = email,
         password = password,
-        isOver18 = isOver18
+        isOver18 = isOver18,
+        profilePhoto = profilePhotoUri
     )
     //Criando uma instancia no repositorio
     val userRepository = UserRepository(context)
 
     //Verificar se o usuario existe
-    val user  = userRepository.findUserByEmail(email)
+    val user = userRepository.findUserByEmail(email)
     Log.i("ds2m", "${user.toString()}")
 
     // Salvar o usuario
-    if (user == null){
+    if (user == null) {
         val id = userRepository.save(newUser)
 
         Toast.makeText(
@@ -317,7 +345,7 @@ fun saveUser(
             "Created User #$id",
             Toast.LENGTH_LONG
         ).show()
-    }else{
+    } else {
         Toast.makeText(
             context,
             "User already exists",
