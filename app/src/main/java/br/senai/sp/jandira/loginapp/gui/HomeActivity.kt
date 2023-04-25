@@ -19,6 +19,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -54,29 +56,35 @@ fun Greeting3(name: String) {
 fun TripApp() {
     LoginAppTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-            Column(){
+            Column() {
                 Card(
-                    modifier = Modifier.height(197.dp),
-                    elevation = 4.dp,
-                    shape = RoundedCornerShape(size = 12.dp),
-                    backgroundColor = Color.Magenta
-                ){
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(200.dp),
+                    shape = RectangleShape
+                ) {
+                    Image(
+                        painter = painterResource(id = br.senai.sp.jandira.loginapp.R.drawable.home),
+                        contentDescription = "",
+                        modifier = Modifier.fillMaxWidth(),
+                        contentScale = ContentScale.Crop
+                    )
                     Column(
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 12.dp, end = 12.dp),
                         horizontalAlignment = Alignment.End
-                    ){
+                    ) {
                         Image(
-                            painter =painterResource(id = br.senai.sp.jandira.loginapp.R.drawable.user),
-                            contentDescription =stringResource(id = br.senai.sp.jandira.loginapp.R.string.susanna_description),
+                            painter = painterResource(id = br.senai.sp.jandira.loginapp.R.drawable.user),
+                            contentDescription = stringResource(id = br.senai.sp.jandira.loginapp.R.string.susanna_description),
                             modifier = Modifier
                                 .size(62.dp)
                                 .clip(shape = CircleShape)
                                 .border(2.dp, Color.White, shape = CircleShape)
                         )
                         Text(
-                            text =stringResource(id = br.senai.sp.jandira.loginapp.R.string.susanna_hoffs),
+                            text = stringResource(id = br.senai.sp.jandira.loginapp.R.string.susanna_hoffs),
                             modifier = Modifier.padding(top = 6.dp),
                             color = Color.White
                         )
@@ -86,11 +94,11 @@ fun TripApp() {
                             .fillMaxWidth()
                             .padding(start = 16.dp),
                         verticalArrangement = Arrangement.Bottom
-                    ){
-                        Row(){
+                    ) {
+                        Row() {
                         }
                         Text(
-                            text =stringResource(id = br.senai.sp.jandira.loginapp.R.string.my_trips),
+                            text = stringResource(id = br.senai.sp.jandira.loginapp.R.string.my_trips),
                             modifier = Modifier.padding(start = 26.dp, bottom = 10.dp),
                             color = Color.White,
                             fontSize = 24.sp,
@@ -98,9 +106,8 @@ fun TripApp() {
                         )
                     }
                 }
-
-                }
+                Text(text = stringResource(id = br.senai.sp.jandira.loginapp.R.string.categories))
             }
-
         }
     }
+}
