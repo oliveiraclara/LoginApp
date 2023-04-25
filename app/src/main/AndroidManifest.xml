@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LoginApp"
         tools:targetApi="31">
-        <a
+        <activity
             android:name=".gui.Trip"
             android:exported="false"
             android:label="@string/title_activity_trip"

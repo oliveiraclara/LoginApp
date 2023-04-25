@@ -25,12 +25,15 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.senai.sp.jandira.loginapp.R
 import br.senai.sp.jandira.loginapp.model.Category
 import br.senai.sp.jandira.loginapp.repository.CategoryRepository
+import br.senai.sp.jandira.loginapp.repository.TripRepository
+import br.senai.sp.jandira.loginapp.model.Trip
 import br.senai.sp.jandira.loginapp.ui.theme.LoginAppTheme
 import androidx.compose.material.OutlinedTextField as OutlinedTextField
 
@@ -45,7 +48,10 @@ class Trip : ComponentActivity() {
         setContent {
             LoginAppTheme {
                 Column {
-                    HomeScreen(CategoryRepository.getCategories())
+                    HomeScreen(
+                        CategoryRepository.getCategories(),
+                        TripRepository.getTrips()
+                    )
                 }
             }
         }
@@ -53,7 +59,10 @@ class Trip : ComponentActivity() {
 }
 
 @Composable
-fun HomeScreen(categories: List<Category>) {
+fun HomeScreen(
+    categories: List<Category>,
+    trips: List<Trip>,
+) {
     Surface(modifier = Modifier.fillMaxSize()) {
         Column() {
             Card(
@@ -149,8 +158,25 @@ fun HomeScreen(categories: List<Category>) {
                     }
                 }
             )
-            LazyColumn(){
-
+            Text(text = stringResource(id = R.string.past_trip),
+            fontSize = 14.sp,
+            color = Color(86, 86, 84),
+            modifier = Modifier.padding(16.dp))
+            LazyColumn() {
+                items(trips){
+                    Card(modifier = Modifier.fillMaxWidth()
+                        .padding(16.dp),
+                    backgroundColor = Color.Cyan) {
+                        Column(modifier = Modifier.padding(8.dp)) {
+                            Image(painter = painterResource(id = R.drawable.no_photography), contentDescription = "")
+                            Text(text = "${it.location}, ${it.startDate.year}")
+                            Text(text = it.description)
+                            Text(text = "${it.startDate} - ${it.endDate}",
+                            textAlign = TextAlign.End,
+                            modifier = Modifier.fillMaxWidth())
+                        }
+                    }
+                }
             }
         }
     }
@@ -160,6 +186,7 @@ fun HomeScreen(categories: List<Category>) {
 @Composable
 fun TripApp() {
     LoginAppTheme {
-        HomeScreen(CategoryRepository.getCategories())
+        HomeScreen(CategoryRepository.getCategories(),
+        TripRepository.getTrips())
     }
 }
